@@ -27,7 +27,7 @@ pipeline {
             steps {
                 bat '''
                 set PATH=%PYTHON_HOME%;%PATH%
-                venv\\Scripts\\activate && pytest test_calculator.py --cov=. --cov-report xml'''
+                venv\\Scripts\\activate && pytest test.py --cov=. --cov-report xml'''
             }
         }
 
