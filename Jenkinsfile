@@ -16,7 +16,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                bat 'pip install pytest pytest-cov requests'
+                bat 'python -m pip install pytest pytest-cov requests'
             }
         }
 
