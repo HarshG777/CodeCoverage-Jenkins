@@ -4,7 +4,7 @@ pipeline {
     environment {
         SONAR_SCANNER_HOME = 'C:\\Users\\lenovo\\Downloads\\sonar-scanner-cli-6.2.1.4610-windows-x64\\sonar-scanner-6.2.1.4610-windows-x64\\bin'
         PYTHON_HOME = "C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python313;C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python313\\Scripts"
-        SONAR_TOKEN = credentials('sonarQub-token') // Using Jenkins credentials to store SonarQube token
+        SONAR_TOKEN = credentials('sonarQub-token')
     }
 
     stages {
@@ -14,10 +14,17 @@ pipeline {
             }
         }
 
+        stage('Setup Virtualenv') {
+            steps {
+                bat 'python -m venv venv'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
                 bat '''
-                set PATH=%PYTHON_HOME%;%PATH%
+                venv\\Scripts\\activate
+                python -m pip install --upgrade pip
                 python -m pip install pytest pytest-cov requests
                 '''
             }
@@ -25,7 +32,7 @@ pipeline {
 
         stage('Run Tests with Coverage') {
             steps {
-                bat 'pytest --cov=. --cov-report xml'
+                bat 'venv\\Scripts\\activate && pytest --cov=. --cov-report xml'
             }
         }
 
