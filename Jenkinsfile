@@ -16,6 +16,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
+                set PATH=%PYTHON_HOME%;%PATH%
                 bat 'python -m pip install pytest pytest-cov requests'
             }
         }
