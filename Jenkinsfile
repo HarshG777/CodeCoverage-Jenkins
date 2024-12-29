@@ -16,13 +16,17 @@ pipeline {
 
         stage('Setup Virtualenv') {
             steps {
-                bat 'python -m venv venv'
+                bat '''
+                set PATH=%PYTHON_HOME%;%PATH%
+                python -m venv venv
+                '''
             }
         }
 
         stage('Install Dependencies') {
             steps {
                 bat '''
+                set PATH=%PYTHON_HOME%;%PATH%
                 venv\\Scripts\\activate
                 python -m pip install --upgrade pip
                 python -m pip install pytest pytest-cov requests
@@ -32,7 +36,9 @@ pipeline {
 
         stage('Run Tests with Coverage') {
             steps {
-                bat 'venv\\Scripts\\activate && pytest --cov=. --cov-report xml'
+                bat '''
+                set PATH=%PYTHON_HOME%;%PATH%
+                venv\\Scripts\\activate && pytest --cov=. --cov-report xml'''
             }
         }
 
