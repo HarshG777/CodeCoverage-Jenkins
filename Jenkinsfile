@@ -36,7 +36,7 @@ pipeline {
                 withSonarQubeEnv('sonarqube') {
                     bat '''sonar-scanner.bat ^
                     -D"sonar.projectKey=CoverageReport-Jenkins"^ 
-                    -D"sonar.sources=src" ^
+                    -D"sonar.sources=." ^
                     -D"sonar.host.url=http://localhost:9000" ^
                     -D"sonar.token=sqp_6d94c361f3baef676f9fa1e88450c378d7b7fd08"^
                     -D"sonar.python.coverage.reportPaths=coverage.xml"'''
