@@ -33,7 +33,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('SonarQube') {
+                withSonarQubeEnv('sonarqube') {
                     bat '''sonar-scanner.bat ^ 
                     -D"sonar.projectKey=CoverageReport-Jenkins" ^ 
                     -D"sonar.sources=." ^ 
